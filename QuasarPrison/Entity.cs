@@ -5,7 +5,7 @@ namespace QuasarPrison
 {
     public class Entity : Node
     {
-        protected Grid _grid;
+        protected Tilemap _grid;
         public Point GridPosition { get; private set; }
         public Entity(string name, Point position) : base(name)
         {

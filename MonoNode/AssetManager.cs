@@ -35,7 +35,5 @@ namespace MonoNode
         {
             return _contentManager.Load<SpriteFont>(assetName);
         }
-        
-        
     }
 }

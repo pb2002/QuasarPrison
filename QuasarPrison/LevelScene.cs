@@ -9,7 +9,7 @@ namespace QuasarPrison
         public LevelScene()
         {
             // initialize your scene here
-            var grid = new Grid("grid");
+            var grid = new Tilemap("grid",24,16, Vector2.One);
             AddChild(grid);
             
             var player = new Entity("player", Point.Zero);
