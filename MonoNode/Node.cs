@@ -34,9 +34,8 @@ namespace MonoNode
             IsEnabled = active;
             if (active)
                 OnEnable();
-            else 
+            else
                 OnDisable();
-            
         }
 
         protected List<Node> Children = new List<Node>();
@@ -65,7 +64,7 @@ namespace MonoNode
             OnUpdate -= Update;
             OnDraw -= Draw;
         }
-
+        
         protected virtual void Init()
         {
             

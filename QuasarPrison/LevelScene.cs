@@ -1,22 +1,33 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using MonoNode;
 
 namespace QuasarPrison
 {
     public class LevelScene : RootNode
     {
+
+
+        public static readonly int levelWidth = 12, levelHeight = 8;
+        
         public LevelScene()
         {
+            var cam = new Camera("camera", 10);
+            cam.SetAsCurrent();
             // initialize your scene here
-            var grid = new Tilemap("grid",24,16, Vector2.One);
+            var placeholder = AssetManager.Instance.LoadSprite("test-thing");
+
+            var grid = new Grid("grid", levelWidth, levelHeight);
             AddChild(grid);
             
-            var player = new Entity("player", Point.Zero);
-            grid.AddChild(player);
+            var player = new Player("player", Point.Zero);
+            player.AddChild(new SpriteNode("player-sprite", placeholder));
+            grid.AddEntity(player);
             
-            player.AddChild(new PlayerController("player-controller"));
             
+        }
+        protected override void Update(GameTime gameTime)
+        {
             
         }
     }

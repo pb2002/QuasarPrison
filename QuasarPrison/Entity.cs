@@ -3,9 +3,8 @@ using MonoNode;
 
 namespace QuasarPrison
 {
-    public class Entity : Node
+    public abstract class Entity : Node
     {
-        protected Tilemap _grid;
         public Point GridPosition { get; private set; }
         public Entity(string name, Point position) : base(name)
         {
@@ -14,10 +13,19 @@ namespace QuasarPrison
 
         public void Move(int x, int y)
         {
-            // Todo: check for grid boundaries
+            var entities = ((Grid)Parent).GetEntities(new Point(x,y));
+            foreach (var entity in entities)
+            {
+                bool isCollision;
+                entity.OnInteract(this, out isCollision);
+                if (isCollision) return;
+            }
             GridPosition = new Point(GridPosition.X + x, GridPosition.Y + y);
         }
+        public abstract void OnTurn();
+        public abstract void OnInteract(Entity other, out bool isCollision);
 
+        
         protected override void Update(GameTime gameTime)
         {
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;

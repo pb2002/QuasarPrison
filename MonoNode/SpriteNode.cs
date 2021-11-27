@@ -26,7 +26,6 @@ namespace MonoNode
         }
         protected override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            // todo: implement scaling
             spriteBatch.Draw(Sprite, Camera.Current.GetSpriteRect(GlobalPosition, Size), Color.White);
         }
     }
