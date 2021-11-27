@@ -41,7 +41,7 @@ namespace MonoNode
             var el = assetName.Split("@");
             _sprite = AssetManager.Instance.LoadSprite(el[0]);
 
-            if (el.Length > 0)
+            if (el.Length > 1)
             {
                 var dimensions = el[1].Split("x");
                 if (dimensions.Length == 2 && int.TryParse(dimensions[0], out int w) && int.TryParse(dimensions[1], out int h))
