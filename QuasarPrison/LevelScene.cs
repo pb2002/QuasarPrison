@@ -15,8 +15,8 @@ namespace QuasarPrison
             var cam = new Camera("camera", 10);
             cam.SetAsCurrent();
             // initialize your scene here
-            var placeholder = AssetManager.Instance.LoadSprite("test-thing");
-
+            var placeholder = new SpriteSheet("test-thing");
+            
             var grid = new Grid("grid", levelWidth, levelHeight);
             AddChild(grid);
             
