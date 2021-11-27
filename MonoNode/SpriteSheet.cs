@@ -35,19 +35,33 @@ namespace MonoNode
         public int Width => _width;
         public int Height => _height;
         public Point Size => _spriteRect.Size;
+        
         public SpriteSheet(string assetName)
         {
             var el = assetName.Split("@");
             _sprite = AssetManager.Instance.LoadSprite(el[0]);
-            if (el.Length > 1)
+
+            if (el.Length > 0)
             {
-                
+                var dimensions = el[1].Split("x");
+                if (dimensions.Length == 2 && int.TryParse(dimensions[0], out int w) && int.TryParse(dimensions[1], out int h))
+                { 
+                    _cols = w;
+                    _rows = h;
+                }
+                else throw new System.FormatException($"'{el[1]}' is not a valid sheet size descriptor");
+                 
             }
             else
             {
-                _width = _sprite.Width;
-                _height = _sprite.Height;
+                _cols = 1;
+                _rows = 1;
             }
+            
+            _width = _sprite.Width / _cols;
+            _height = _sprite.Height / _rows;
+
+            SheetIndex = 0;
         }
         public void Draw(SpriteBatch spriteBatch, Rectangle dest)
         {
