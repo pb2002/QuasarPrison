@@ -5,7 +5,7 @@ namespace MonoNode
 {
     public class SpriteNode : Node
     {
-        public Texture2D Sprite { get; set; }
+        public SpriteSheet Sheet { get; set; }
         public Vector2 UnscaledSize { get; }
         public Vector2 Scale { get; set; }
         
@@ -13,20 +13,20 @@ namespace MonoNode
         
         public float Depth { get; set; }
 
-        public SpriteNode(string name, Texture2D sprite) : base(name)
+        public SpriteNode(string name, SpriteSheet sheet) : base(name)
         {
-            Sprite = sprite;
-            UnscaledSize = sprite.Bounds.Size.ToVector2() / Camera.PixelsPerUnit;
+            Sheet = sheet;
+            UnscaledSize = sheet.Size.ToVector2() / Camera.PixelsPerUnit;
             Scale = Vector2.One;
         }
-        public SpriteNode(string name, Texture2D sprite, Vector2 scale) : base(name)
+        public SpriteNode(string name, SpriteSheet sheet, Vector2 scale) : base(name)
         {
-            Sprite = sprite;
+            Sheet = sheet;
             Scale = scale;
         }
         protected override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Sprite, Camera.Current.GetSpriteRect(GlobalPosition, Size), Color.White);
+            Sheet.Draw(spriteBatch, Camera.Current.GetSpriteRect(GlobalPosition, Size));
         }
     }
 }
