@@ -6,9 +6,11 @@ namespace QuasarPrison
 {
     public class Player : Entity
     {
+        public int health = 100;
+
         public Player(string name, Point position) : base(name, position)
         {
-            
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -30,7 +32,19 @@ namespace QuasarPrison
             {
                 Move(1, 0);
             }
+
+            //Die();
+
         }
+
+        //player death function still needs a level reset function
+        //public void Die()
+        //{
+        //    if (health <= 0)
+        //        LocalPosition = Vector2.Zero;
+        //
+        //}
+
         public override void OnTurn()
         {
             
