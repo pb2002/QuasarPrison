@@ -6,36 +6,19 @@ namespace QuasarPrison
 {
     class Enemy : Entity
     {
-        bool detected = false;
+        // edit: remember to stick to official C# naming convention!
+        // - private fields: _nameOfMember
+        // - public / protected fields: NameOfMember
+        // - methods: NameOfMember
+        private bool _detected = false;
 
-        int spottingRange = 5;
-        int shootingRange = 3;
-        int damage = 20;
+        private int _spottingRange = 5;
+        private int _shootingRange = 3;
+        private int _damage = 20;
         
         public Enemy(string name, Point position) : base(name, position)
         {
             
-        }
-
-        protected override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-
-            if (InRange(GridPosition, LevelScene.player.GridPosition, spottingRange))
-            {
-                detected = true;
-
-            }
-
-            if ((InputManager.Instance.GetKeyDown(Keys.W) || InputManager.Instance.GetKeyDown(Keys.S) || InputManager.Instance.GetKeyDown(Keys.A) || InputManager.Instance.GetKeyDown(Keys.D)) && detected)
-            {
-                if (!InRange(GridPosition, LevelScene.player.GridPosition, shootingRange))
-                    MoveToCordinate(GridPosition, LevelScene.player.GridPosition);
-
-                if (InRange(GridPosition, LevelScene.player.GridPosition, shootingRange))
-                    Shoot();
-            }
-
         }
 
         public void MoveToCordinate(Point location, Point goal)
@@ -70,14 +53,21 @@ namespace QuasarPrison
 
         public void Shoot()
         {
-            LevelScene.player.health -= damage;
-
+            LevelScene.player.health -= _damage;
         }
-
 
         public override void OnTurn()
         {
+            if (InRange(GridPosition, LevelScene.player.GridPosition, _spottingRange))
+            {
+                _detected = true;
+            }
+            
+            if (!InRange(GridPosition, LevelScene.player.GridPosition, _shootingRange))
+                MoveToCordinate(GridPosition, LevelScene.player.GridPosition);
 
+            if (InRange(GridPosition, LevelScene.player.GridPosition, _shootingRange))
+                Shoot();
         }
         public override void OnInteract(Entity other, out bool isCollision)
         {

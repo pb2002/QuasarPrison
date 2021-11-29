@@ -16,25 +16,31 @@ namespace QuasarPrison
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            bool collided = false;
+            bool moved = false;
             if (InputManager.Instance.GetKeyDown(Keys.W))
             {
-                Move(0, -1);
+                collided = Move(0, -1);
+                moved = true;
             }
             if (InputManager.Instance.GetKeyDown(Keys.S))
             {
-                Move(0, 1);
+                collided = Move(0, 1);
+                moved = true;
             }
             if (InputManager.Instance.GetKeyDown(Keys.A))
             {
-                Move(-1, 0);
+                collided = Move(-1, 0);
+                moved = true;
             }
             if (InputManager.Instance.GetKeyDown(Keys.D))
             {
-                Move(1, 0);
+                collided = Move(1, 0);
+                moved = true;
             }
 
+            if (moved && !collided) InvokePlayerAction();
             //Die();
-
         }
 
         //player death function still needs a level reset function
